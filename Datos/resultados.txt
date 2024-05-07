@@ -1,0 +1,5 @@
+1234567890^Gripa^Positivo^Fiebre^Positivo
+2345678901^Gripa^Negativo^Fiebre^Negativo
+3456789012^Gripa^Positivo^Fiebre^Positivo
+4567890123^Gripa^Negativo^Fiebre^Positivo
+5678901234^Gripa^Positivo^Fiebre^Negativo
