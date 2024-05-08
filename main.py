@@ -1,7 +1,7 @@
 from funtions import *
 import os
 
-ruta_carpeta = 'Tercer_parcial\Taller_monitor\Datos'
+ruta_carpeta = 'Tercer_parcial\Taller_monitor\Datos' #direccion de la carpeta datos que con tiene los medicos, pacientes y resultados
 
 for nombre_archivo in os.listdir(ruta_carpeta):
     ruta_archivo = os.path.join(ruta_carpeta, nombre_archivo)
@@ -21,5 +21,5 @@ for nombre_archivo in os.listdir(ruta_carpeta):
 
 
 # print(dict_resultados)
-# print(dict_pacientes)
-print(dict_medicos)
+print(dict_pacientes)
+# print(dict_medicos)

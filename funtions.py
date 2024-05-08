@@ -29,8 +29,15 @@ def read_json(archivo):
             paciente_list = json.load(pacientes)
             dict_pacientes = {}
             for i,value in enumerate(paciente_list):
-                dict_pacientes[i]=value
-            return dict_pacientes
+                dict_pacientes[i] = list(value.values())
+            modified_dict_pacientes = {}
+            for key, value in dict_pacientes.items():
+                modified_value = [value[1], value[0], *value[2:]]
+                modified_dict_pacientes[key] = modified_value
+
+            print(modified_dict_pacientes)
+
+            return modified_dict_pacientes
     except FileNotFoundError:
         print(f"El archivo {archivo} no se encontró.")
         return None
@@ -76,3 +83,5 @@ def read_txt(archivo):
 #     dict_pacientes[i] = value  #diccionario de los pacientes
 
 read_txt(data_resultados)
+
+
