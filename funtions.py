@@ -63,6 +63,7 @@ def read_txt(archivo):
         return None
 
 def info_(pacientes,pac):
+    
     #Pac= input("Ingrese la cédula del paciente: ")
     for i in range(len(pacientes)) :
         if pacientes[i][0] == pac:
