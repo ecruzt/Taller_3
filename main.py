@@ -1,7 +1,7 @@
 from funtions import *
 import os
 
-ruta_carpeta = 'Tercer_parcial\Taller_monitor\Datos' #direccion de la carpeta datos que con tiene los medicos, pacientes y resultados
+ruta_carpeta = r'C:\Users\rseba\OneDrive\Escritorio\UNIVERSIDAD DE ANTIOQUIA\SEMESTRE 3\Informatica 1\Parcial 4\Taller_3-1\Datos' #direccion de la carpeta datos que con tiene los medicos, pacientes y resultados
 
 for nombre_archivo in os.listdir(ruta_carpeta):
     ruta_archivo = os.path.join(ruta_carpeta, nombre_archivo)
@@ -20,6 +20,16 @@ for nombre_archivo in os.listdir(ruta_carpeta):
         dict_pacientes = read_json(ruta_archivo)
 
 
-# print(dict_resultados)
+"""print(dict_resultados)
 print(dict_pacientes)
-# print(dict_medicos)
+print(dict_medicos)
+"""
+Pac= input("Ingrese la cédula del paciente: ")
+
+info_paciente = info_(dict_pacientes, Pac)
+socio = int(info_paciente[3])
+info_medi = info_medico(dict_medicos,socio)
+print(info_medi)
+print(info_paciente)
+
+# print(dict_resultados)

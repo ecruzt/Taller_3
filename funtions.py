@@ -34,9 +34,6 @@ def read_json(archivo):
             for key, value in dict_pacientes.items():
                 modified_value = [value[1], value[0], *value[2:]]
                 modified_dict_pacientes[key] = modified_value
-
-            print(modified_dict_pacientes)
-
             return modified_dict_pacientes
     except FileNotFoundError:
         print(f"El archivo {archivo} no se encontró.")
@@ -65,23 +62,21 @@ def read_txt(archivo):
         print(f"Ocurrió un error: {e}")
         return None
 
+def info_(pacientes,pac):
+    #Pac= input("Ingrese la cédula del paciente: ")
+    for i in range(len(pacientes)) :
+        if pacientes[i][0] == pac:
+            return(pacientes[i])
         
+def info_medico(dict_medicos,key,):
 
-            
+    c=dict_medicos[key]
+    return c
+    #""" for i in range(len(pacientes)) :
+        #if pacientes[i][0] == pac:
+           # return(pacientes[i])"""
 
+    
 
-
-
-# contenido_medicos = read_csv(data_medicos)
-# if contenido_medicos is not None:
-#     print(contenido_medicos)
-
-# contenido_pacientes = read_json(data_pacientes)
-# if contenido_pacientes is not None:
-#     dict_pacientes = {}
-# for i,value in enumerate(contenido_pacientes):
-#     dict_pacientes[i] = value  #diccionario de los pacientes
-
-read_txt(data_resultados)
 
 
