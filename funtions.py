@@ -1,7 +1,12 @@
-data_medicos = r'C:\Users\VICTUS\Desktop\UdeA\Tercer semestre\Informática\Tercer_parcial\Taller_monitor\Datos\medicos.csv'
-data_pacientes = r'C:\Users\VICTUS\Desktop\UdeA\Tercer semestre\Informática\Tercer_parcial\Taller_monitor\Datos\pacientes.json'
-data_resultados = r'C:\Users\VICTUS\Desktop\UdeA\Tercer semestre\Informática\Tercer_parcial\Taller_monitor\Datos\resultados.txt'
-
+def readUserInput(output, dataType):
+    while True:
+        user_input = input(output)
+        try: 
+            result = dataType(user_input)
+            break
+        except ValueError:
+            print(f"Error: '{user_input}' no es un valor válido para {dataType.__name__}. Por favor, intenta de nuevo.")
+    return result
 
 def read_csv(archivo):
     import csv
@@ -62,11 +67,11 @@ def read_txt(archivo):
         print(f"Ocurrió un error: {e}")
         return None
 
-def info_(pacientes,pac):
+def info_(pacientes, cedula):
     
     #Pac= input("Ingrese la cédula del paciente: ")
     for i in range(len(pacientes)) :
-        if pacientes[i][0] == pac:
+        if pacientes[i][0] == cedula:
             return(pacientes[i])
         
 def info_medico(dict_medicos,key,):
