@@ -66,12 +66,14 @@ def read_txt(archivo):
     except Exception as e:
         print(f"Ocurrió un error: {e}")
         return None
-
-def info_(pacientes, cedula):
     
-    for i in range(len(pacientes)) :
-        if pacientes[i][0] == cedula:
-            return(pacientes[i])
+#primer argumento diccionario ya sea de pacientes ó resultados
+# segundo argumento cedula a buscar
+
+def looking_for_cedula(dict, cedula):
+    for i in range(len(dict)):
+        if dict[i][0] == cedula:
+            return(dict[i])
 
 def modicarNombre(pacientes, nombreant):
     
@@ -86,30 +88,30 @@ def info_medico(dict_medicos,key,):
 
 
 def Asociar(cedula, dict_pacientes, dict_resultados, dict_medicos):
-    info_paciente = info_(dict_pacientes, cedula) 
-    info_resultados = info_(dict_resultados, cedula)
+    info_paciente = looking_for_cedula(dict_pacientes, cedula) 
+    info_resultados = looking_for_cedula(dict_resultados, cedula)
     socio = int(info_paciente[3])
     info_medi = info_medico(dict_medicos,socio)
     asociation = f'El paciente {info_paciente[1]} está asignado al médico {info_medi[1]} los resultados de sus examenes son:\n{info_resultados[2]} para {info_resultados[1]} y {info_resultados[4]} para {info_resultados[3]}'
     return asociation
 
-def actualizar_paciente(dict_pacientes):
-    import json
-    try:
+# def actualizar_paciente(dict_pacientes):
+#     import json
+#     try:
         
-            menuPacientes = '''
-            1. Modificar nombre
-            2. Modificar edad
-            3. Modificar medico asignado
-            '''
-            while True:
-                print(menuPacientes)
-                reponsemenupacientes = readUserInput('Ingrese opción deseada: ', int)
-                if reponsemenupacientes == 1:
-                    nombreant= readUserInput("Ingrese nombre que desea cambiar: ", str)
-                    keynombreant=modicarNombre(paciente_list,nombreant)
-                    nombrenuevo= readUserInput("Ingrese nombre nuevo: ", str)
-                    keynombreant[0].replace(nombrenuevo)
+#             menuPacientes = '''
+#             1. Modificar nombre
+#             2. Modificar edad
+#             3. Modificar medico asignado
+#             '''
+#             while True:
+#                 print(menuPacientes)
+#                 reponsemenupacientes = readUserInput('Ingrese opción deseada: ', int)
+#                 if reponsemenupacientes == 1:
+#                     nombreant= readUserInput("Ingrese nombre que desea cambiar: ", str)
+#                     keynombreant=modicarNombre(paciente_list,nombreant)
+#                     nombrenuevo= readUserInput("Ingrese nombre nuevo: ", str)
+#                     keynombreant[0].replace(nombrenuevo)
 
 
 
@@ -118,14 +120,48 @@ def actualizar_paciente(dict_pacientes):
     
     
     
-    except FileNotFoundError:
-        print(f"El archivo {archivo} no se encontró.")
-        return None
-    except json.JSONDecodeError:
-        print(f"El archivo {archivo} no es un archivo JSON válido.")
-        return None
-    except Exception as e:
-        print(f"Ocurrió un error: {e}")
-        return None
+#     except FileNotFoundError:
+#         print(f"El archivo {archivo} no se encontró.")
+#         return None
+#     except json.JSONDecodeError:
+#         print(f"El archivo {archivo} no es un archivo JSON válido.")
+#         return None
+#     except Exception as e:
+#         print(f"Ocurrió un error: {e}")
+#         return None
+
+
+
+# Función para eliminar datos de un paciente
+
+def eliminar_datos_paciente(dict_pacientes, cedula):
+    paciente = looking_for_cedula(dict_pacientes, cedula)
+    if paciente:
+        print(f"""Datos del paciente encontrado:
+        Cédula: {paciente[0]}
+        Nombre: {paciente[1]}
+        Edad: {paciente[2]}
+        Médico asignado: {paciente[3]}""")
+        
+        while True:
+            dato_a_eliminar = readUserInput(f"¿Qué dato desea eliminar del paciente {paciente[1]}?\n1. Nombre\n2. Edad\n3. Médico asignado\n ", int)
+            
+            if dato_a_eliminar == 1:
+                paciente[1] = None
+                break
+            elif dato_a_eliminar == 2:
+                paciente[2] = None
+                break
+            elif dato_a_eliminar == 3:
+                paciente[3] = None
+                break
+            else:
+                print("Entrada no válida.")
+        
+        print("Dato eliminado correctamente.")
+    else:
+        print("No se encontró ningún paciente con la cédula proporcionada.")
+
+
 
 

@@ -1,0 +1,32 @@
+[
+    {
+        "nombre": "Pedro Pérez",
+        "cedula": "1234567890",
+        "edad": 40,
+        "medico_asignado": "1"
+    },
+    {
+        "nombre": "María López",
+        "cedula": "2345678901",
+        "edad": 35,
+        "medico_asignado": "2"
+    },
+    {
+        "nombre": "Juan Martínez",
+        "cedula": "3456789012",
+        "edad": 50,
+        "medico_asignado": "3"
+    },
+    {
+        "nombre": "Ana García",
+        "cedula": "4567890123",
+        "edad": 28,
+        "medico_asignado": "4"
+    },
+    {
+        "nombre": "Luisa Rodríguez",
+        "cedula": "5678901234",
+        "edad": 45,
+        "medico_asignado": "5"
+    }
+]
