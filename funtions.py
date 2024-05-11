@@ -69,20 +69,64 @@ def read_txt(archivo):
 
 def info_(pacientes, cedula):
     
-    #Pac= input("Ingrese la cédula del paciente: ")
     for i in range(len(pacientes)) :
         if pacientes[i][0] == cedula:
+            return(pacientes[i])
+
+def modicarNombre(pacientes, nombreant):
+    
+    for i in range(len(pacientes)) :
+        if pacientes[i][0] == nombreant:
             return(pacientes[i])
         
 def info_medico(dict_medicos,key,):
 
     c=dict_medicos[key]
     return c
-    #""" for i in range(len(pacientes)) :
-        #if pacientes[i][0] == pac:
-           # return(pacientes[i])"""
 
+
+def Asociar(cedula, dict_pacientes, dict_resultados, dict_medicos):
+    info_paciente = info_(dict_pacientes, cedula) 
+    info_resultados = info_(dict_resultados, cedula)
+    socio = int(info_paciente[3])
+    info_medi = info_medico(dict_medicos,socio)
+    asociation = f'El paciente {info_paciente[1]} está asignado al médico {info_medi[1]} los resultados de sus examenes son:\n{info_resultados[2]} para {info_resultados[1]} y {info_resultados[4]} para {info_resultados[3]}'
+    return asociation
+
+def actualizar_paciente(archivo):
+    import json
+    try:
+        with open(archivo, 'w', encoding='utf8') as pacientes:
+            paciente_list = json.load(pacientes)
+            menuPacientes = '''
+            1. Modificar nombre
+            2. Modificar edad
+            3. Modificar medico asignado
+            '''
+            while True:
+                print(menuPacientes)
+                reponsemenupacientes = readUserInput('Ingrese opción deseada: ', int)
+                if reponsemenupacientes == 1:
+                    nombreant= readUserInput("Ingrese nombre que desea cambiar: ", str)
+                    keynombreant=modicarNombre(paciente_list,nombreant)
+                    nombrenuevo= readUserInput("Ingrese nombre nuevo: ", str)
+                    keynombreant[0].replace(nombrenuevo)
+
+
+
+
+                    
     
-
+    
+    
+    except FileNotFoundError:
+        print(f"El archivo {archivo} no se encontró.")
+        return None
+    except json.JSONDecodeError:
+        print(f"El archivo {archivo} no es un archivo JSON válido.")
+        return None
+    except Exception as e:
+        print(f"Ocurrió un error: {e}")
+        return None
 
 
