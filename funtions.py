@@ -93,11 +93,10 @@ def Asociar(cedula, dict_pacientes, dict_resultados, dict_medicos):
     asociation = f'El paciente {info_paciente[1]} está asignado al médico {info_medi[1]} los resultados de sus examenes son:\n{info_resultados[2]} para {info_resultados[1]} y {info_resultados[4]} para {info_resultados[3]}'
     return asociation
 
-def actualizar_paciente(archivo):
+def actualizar_paciente(dict_pacientes):
     import json
     try:
-        with open(archivo, 'w', encoding='utf8') as pacientes:
-            paciente_list = json.load(pacientes)
+        
             menuPacientes = '''
             1. Modificar nombre
             2. Modificar edad

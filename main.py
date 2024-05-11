@@ -45,12 +45,7 @@ for nombre_archivo in os.listdir(ruta_carpeta):
 #         print('Ingre una opción valida')
 
 
-for nombre_archivo in os.listdir(ruta_carpeta):
-    ruta_archivo = os.path.join(ruta_carpeta, nombre_archivo)
 
-    if ruta_archivo.endswith('.json'):
-            print(f'Procesando archivo JSON: {ruta_archivo}')
-            actualizar_paciente(ruta_archivo)
 
         
     
