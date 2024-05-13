@@ -4,7 +4,8 @@ import os
 #direccion de la carpeta datos que contiene los medicos, pacientes y resultados
 path_raul = r'C:\Users\rseba\OneDrive\Escritorio\UNIVERSIDAD DE ANTIOQUIA\SEMESTRE 3\Informatica 1\Parcial 4\Taller_3-1\Datos'
 path_emanuel = r"C:\Users\VICTUS\Desktop\UdeA\Tercer semestre\Informática\Tercer_parcial\Taller_3\Datos"
-ruta_carpeta = path_emanuel
+ruta_carpeta = path_raul
+
 
 for nombre_archivo in os.listdir(ruta_carpeta):
     ruta_archivo = os.path.join(ruta_carpeta, nombre_archivo)
@@ -80,9 +81,11 @@ while True:
             try:
                 responsemenu2 = readUserInput('Ingrese la opcion deseada: ', int)
                 if responsemenu2 == 1:
+                    actualizar_paciente(dict_pacientes)
                     continue
 
                 elif responsemenu2 == 2:
+                    agregar_info_paciente(dict_pacientes)
                     continue
                 
                 elif responsemenu2 == 3:
@@ -107,9 +110,11 @@ while True:
             try:
                 responsemenu3 = readUserInput('Ingrese la opcion deseada: ', int)
                 if responsemenu3 == 1:
+                    actualizar_medico(dict_medicos)
                     continue
 
                 elif responsemenu3 == 2:
+                    agregar_info_Medico(dict_medicos)
                     continue
                 
                 elif responsemenu3 == 3:
@@ -135,9 +140,11 @@ while True:
             try:
                 responsemenu4 = readUserInput('Ingrese la opcion deseada: ', int)
                 if responsemenu4 == 1:
+                    actualizar_resultados(dict_resultados)
                     continue
 
                 elif responsemenu4 == 2:
+                    agregar_info_Resultado(dict_resultados)
                     continue
                 
                 elif responsemenu4 == 3:

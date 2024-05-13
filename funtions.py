@@ -45,7 +45,7 @@ def read_json(archivo):
     except Exception as e:
         print(f"Ocurrió un error: {e}")
         return None
-    
+
 def read_txt(archivo):
     try:
         with open(archivo, 'r') as resultados:
@@ -73,11 +73,11 @@ def looking_for_cedula(dict, cedula):
             return(dict[i])
 
 
-def modicarNombre(pacientes, nombreant):
-    
-    for i in range(len(pacientes)) :
-        if pacientes[i][0] == nombreant:
-            return(pacientes[i])
+#def modicarNombre(pacientes, nombreant):
+#    
+#    for i in range(len(pacientes)) :
+#        if pacientes[i][0] == nombreant:
+#            return(pacientes[i])
 
 # Funcion para encontrar medico asignado
 
@@ -99,25 +99,119 @@ def Asociar(cedula, dict_pacientes, dict_resultados, dict_medicos):
 {info_resultados[enfermedades[0]]} para {enfermedades[0]} y {info_resultados[enfermedades[1]]} para {enfermedades[1]}'''
     return asociation
 
-# def actualizar_paciente(dict_pacientes):
-#     import json
-#     try:
-        
-#             menuPacientes = '''
-#             1. Modificar nombre
-#             2. Modificar edad
-#             3. Modificar medico asignado
-#             '''
-#             while True:
-#                 print(menuPacientes)
-#                 reponsemenupacientes = readUserInput('Ingrese opción deseada: ', int)
-#                 if reponsemenupacientes == 1:
-#                     nombreant= readUserInput("Ingrese nombre que desea cambiar: ", str)
-#                     keynombreant=modicarNombre(paciente_list,nombreant)
-#                     nombrenuevo= readUserInput("Ingrese nombre nuevo: ", str)
-#                     keynombreant[0].replace(nombrenuevo)
+#Funcion actualizar info paciente
 
+def actualizar_paciente(dict_pacientes):
+    import json
+    try:
+              
+     menuPacientes = '''
+     1. Modificar nombre
+     2. Modificar edad
+     3. Modificar medico asignado
+              '''
+     while True:
+                print(menuPacientes)
+                reponsemenupacientes = readUserInput('Ingrese opción deseada: ', int)
+                if reponsemenupacientes == 1:
+                    cedula= readUserInput("Ingrese cedula a la cual le desea cambiar el nombre: ", int)
+                    nombrenuevo= readUserInput("Ingrese nombre nuevo: ", str)
+                    dict_pacientes[cedula]["nombre"]=nombrenuevo
+                if reponsemenupacientes==2:
+                    cedula= readUserInput("Ingrese cedula a la cual le desea cambiar la edad: ", int)
+                    edadnueva= readUserInput("Ingrese nombre nuevo: ", str)
+                    dict_pacientes[cedula]["edad"]=edadnueva
+                if reponsemenupacientes==3:
+                    cedula= readUserInput("Ingrese cedula a la cual le desea cambiar el medico: ", int)
+                    mediconuevo= readUserInput("Ingrese numero medico nuevo: ", str)
+                    dict_pacientes[cedula]["medico_asignado"]=mediconuevo
+    except:
+        print("Datos incorrectos")
 
+#Funcion agregar info paciente
+def agregar_info_paciente(dict_pacientes):
+    import json
+    try:
+        while True:
+            cedula= readUserInput("Ingrese cedula de paciente al que le desea añadir informacion: ", int)
+            llave_nueva= readUserInput("Ingrese valor a la llave: ", str)
+            valor_nuevo= input("Ingrese valor nuevo")
+            dict_interno= dict_pacientes[cedula]
+            dict_interno[llave_nueva]= valor_nuevo
+    except: 
+        print("Valor incorrecto")
+
+#Funcion actualizar info medico
+
+def actualizar_medico(dict_medicos):
+    import csv
+    try:
+              
+     menuMedicos = '''
+     1. Modificar nombre
+     2. Modificar codigo
+              '''
+     while True:
+                print(menuMedicos)
+                reponsemenuMedicos = readUserInput('Ingrese opción deseada: ', int)
+                if reponsemenuMedicos == 1:
+                    cedula= readUserInput("Ingrese cedula a la cual le desea cambiar el nombre: ", int)
+                    nombrenuevo= readUserInput("Ingrese nombre nuevo: ", str)
+                    dict_medicos[cedula]["nombre"]=nombrenuevo
+                if reponsemenuMedicos==2:
+                    cedula= readUserInput("Ingrese cedula a la cual le desea cambiar el codigo: ", int)
+                    codigonuevo= readUserInput("Ingrese nombre nuevo: ", str)
+                    dict_medicos[cedula]["codigo"]=codigonuevo
+    except:
+        print("Datos incorrectos")
+
+#Funcion agregar info medico
+def agregar_info_Medico(dict_medicos):
+    import csv
+    try:
+        while True:
+            cedula= readUserInput("Ingrese cedula del medico al que le desea añadir informacion: ", int)
+            llave_nueva= readUserInput("Ingrese valor a la llave: ", str)
+            valor_nuevo= input("Ingrese valor nuevo")
+            dict_interno= dict_medicos[cedula]
+            dict_interno[llave_nueva]= valor_nuevo
+    except: 
+        print("Valor incorrecto")
+
+#Funcion actualizar info resultados
+
+def actualizar_resultados(dict_resultados):
+    try:
+              
+     menuResultados = '''
+     1. Modificar gripa
+     2. Modificar fiebre
+              '''
+     while True:
+                print(menuResultados)
+                reponsemenuResultados = readUserInput('Ingrese opción deseada: ', int)
+                if reponsemenuResultados == 1:
+                    cedula= readUserInput("Ingrese cedula a la cual le desea cambiar el resultado: ", int)
+                    gripanuevo= readUserInput("Ingrese resultado de gripa nuevo: ", str)
+                    dict_resultados[cedula]["gripa"]=gripanuevo
+                if reponsemenuResultados==2:
+                    cedula= readUserInput("Ingrese cedula a la cual le desea cambiar el resultado: ", int)
+                    fiebrenuevo= readUserInput("Ingrese resultado de fiebre nuevo: ", str)
+                    dict_resultados[cedula]["fiebre"]=fiebrenuevo
+    except:
+        print("Datos incorrectos")
+
+#Funcion agregar info medico
+def agregar_info_Resultado(dict_resultados):
+    try:
+        while True:
+            cedula= readUserInput("Ingrese cedula del paciente al que le desea añadir informacion en los resultados: ", int)
+            llave_nueva= readUserInput("Ingrese valor a la llave: ", str)
+            valor_nuevo= input("Ingrese valor nuevo")
+            dict_interno= dict_resultados[cedula]
+            dict_interno[llave_nueva]= valor_nuevo
+    except: 
+        print("Valor incorrecto")
 
 
                     
