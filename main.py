@@ -26,20 +26,24 @@ for nombre_archivo in os.listdir(ruta_carpeta):
 # print(dict_pacientes)
 # print(dict_medicos)
 
-# dict_medicos = {0: ('101', 'Juan Pérez', '1'), 1: ('102', 'María García', '2'), 2: ('103', 'Carlos López', '3'), 3: ('104', 'Laura Martínez', '4'), 4: ('105', 'Ana Ruiz', '5')}
-# dict_pacientes = {
-#     0: ['1234567890', 'Pedro Pérez', 40, '1'],
-#     1: ['2345678901', 'María López', 35, '2'],
-#     2: ['3456789012', 'Juan Martínez', 50, '3'],
-#     3: ['4567890123', 'Ana García', 28, '4'],
-#     4: ['5678901234', 'Luisa Rodríguez', 45, '5']
-# }
+# dict_medicos = {101: {'nombre': 'Juan Pérez', 'codigo': '1'},
+                # 102: {'nombre': 'María García', 'codigo': '2'},
+                # 103: {'nombre': 'Carlos López', 'codigo': '3'}, 
+                # 104: {'nombre': 'Laura Martínez', 'codigo': '4'},
+                # 105: {'nombre': 'Ana Ruiz', 'codigo': '5'}}
+
+# dict_pacientes = {1234567890: {'nombre': 'Pedro Pérez', 'edad': 40, 'medico_asignado': '1'},
+                    # 2345678901: {'nombre': 'María López', 'edad': 35, 'medico_asignado': '2'}, 
+                    # 3456789012: {'nombre': 'Juan Martínez', 'edad': 50, 'medico_asignado': '3'}, 
+                    # 4567890123: {'nombre': 'Ana García', 'edad': 28, 'medico_asignado': '4'}, 
+                    # 5678901234: {'nombre': 'Luisa Rodríguez', 'edad': 45, 'medico_asignado': '5'}}
+
 # # dict_resultados = {
-#     0: ['1234567890', 'Gripa', 'Positivo', 'Fiebre', 'Positivo'],
-#     1: ['2345678901', 'Gripa', 'Negativo', 'Fiebre', 'Negativo'],
-#     2: ['3456789012', 'Gripa', 'Positivo', 'Fiebre', 'Positivo'],
-#     3: ['4567890123', 'Gripa', 'Negativo', 'Fiebre', 'Positivo'],
-#     4: ['5678901234', 'Gripa', 'Positivo', 'Fiebre', 'Negativo']
+                        # 1234567890: {'Gripa': 'Positivo', 'Fiebre': 'Positivo'}, 
+                        # 2345678901: {'Gripa': 'Negativo', 'Fiebre': 'Negativo'}, 
+                        # 3456789012: {'Gripa': 'Positivo', 'Fiebre': 'Positivo'}, 
+                        # 4567890123: {'Gripa': 'Negativo', 'Fiebre': 'Positivo'}, 
+                        # 5678901234: {'Gripa': 'Positivo', 'Fiebre': 'Negativo'}
 # }
 
 
@@ -47,14 +51,17 @@ while True:
     menu1 ='''
 ================================= Menú ==============================
 1. Ver el médico asociado a un paciente, con sus respectivos resultados
-2. Modificar informacion del paciente'''
+2. Modificar informacion del paciente
+3. Modificar informacion de los medicos
+4. Modificar examenes medicos
+'''
     print(menu1)
 
     try:
         responsemenu1 = readUserInput('Ingrese la opcion deseada: ', int)
 
         if responsemenu1 == 1:
-            cedula = readUserInput("Ingrese la cédula del paciente: ", str)
+            cedula = readUserInput("Ingrese la cédula del paciente: ", int)
             conexion = Asociar(cedula, dict_pacientes, dict_resultados, dict_medicos)
             print(conexion)
 
@@ -63,7 +70,8 @@ while True:
 ============ Menú =============
 1. Actualizar datos para un paciente 
 2. Agregar datos para un paciente
-3. Eliminar datos de un paciente'''
+3. Eliminar datos de un paciente
+'''
             print(menu2)
             try:
                 responsemenu2 = readUserInput('Ingrese la opcion deseada: ', int)
@@ -74,14 +82,78 @@ while True:
                     continue
                 
                 elif responsemenu2 == 3:
-                    cedula_a_eliminar = readUserInput("Ingrese la cédula del paciente que desea editar: ", str)
+                    cedula_a_eliminar = readUserInput("Ingrese la cédula del paciente que desea editar: ", int)
                     eliminar_datos_paciente(dict_pacientes, cedula_a_eliminar)
                     print("Diccionario de pacientes actualizado:")
                     print(dict_pacientes)
+                
                 else:
                     print('Ingre una opción valida')
             except TypeError:
                 print('Ingre una opción valida')
+
+        elif responsemenu1 == 3:
+            menu3 ='''
+============ Menú =============
+1. Actualizar datos para un medico
+2. Agregar datos para un medico
+3. Eliminar datos de un medico
+'''
+            print(menu3)
+            try:
+                responsemenu3 = readUserInput('Ingrese la opcion deseada: ', int)
+                if responsemenu3 == 1:
+                    continue
+
+                elif responsemenu3 == 2:
+                    continue
+                
+                elif responsemenu3 == 3:
+                    cedula_a_eliminar = readUserInput("Ingrese la cédula del medico que desea editar: ", int)
+                    eliminar_datos_medico(dict_medicos, cedula_a_eliminar)
+                    print("Diccionario de medicos actualizado:")
+                    print(dict_medicos)
+                
+                else:
+                    print('Ingre una opción valida')
+
+            except TypeError:
+                print('Ingre una opción valida')
+
+        elif responsemenu1 == 4:
+            menu4 ='''
+============ Menú =============
+1. Actualizar resultados medicos para un paciente
+2. Agregar resultados medicos para un paciente
+3. Eliminar resultados medicos para un paciente
+'''
+            print(menu4)
+            try:
+                responsemenu4 = readUserInput('Ingrese la opcion deseada: ', int)
+                if responsemenu4 == 1:
+                    continue
+
+                elif responsemenu4 == 2:
+                    continue
+                
+                elif responsemenu4 == 3:
+                    cedula_a_eliminar = readUserInput("Ingrese la cédula del paciente que desea editar: ", int)
+                    eliminar_datos_resultados(dict_resultados, cedula_a_eliminar)
+                    print("Diccionario de resultados actualizado:")
+                    print(dict_resultados)
+                
+                else:
+                    print('Ingre una opción valida')
+
+            except TypeError:
+                print('Ingre una opción valida')
+
+
+
+
+
+
+
 
         else:
             print('Ingre una opción valida')

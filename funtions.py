@@ -14,8 +14,8 @@ def read_csv(archivo):
         with open(archivo, 'r') as medicos:
             medi = csv.DictReader(medicos)
             contenido_medicos = {}
-            for i, row in enumerate(medi):
-                contenido_medicos[i]=(row['cedula'], row['nombre'], row['codigo'])
+            for row in medi:
+                contenido_medicos[int(row['cedula'])]= {'nombre': row['nombre'], 'codigo': row['codigo']}
         return contenido_medicos
     except FileNotFoundError:
         print(f"El archivo {archivo} no se encontró.")
@@ -33,13 +33,9 @@ def read_json(archivo):
         with open(archivo, 'r', encoding='utf8') as pacientes:
             paciente_list = json.load(pacientes)
             dict_pacientes = {}
-            for i,value in enumerate(paciente_list):
-                dict_pacientes[i] = list(value.values())
-            modified_dict_pacientes = {}
-            for key, value in dict_pacientes.items():
-                modified_value = [value[1], value[0], *value[2:]]
-                modified_dict_pacientes[key] = modified_value
-            return modified_dict_pacientes
+            for i in paciente_list:
+                dict_pacientes[int(i["cedula"])] = {'nombre': i['nombre'], 'edad': i['edad'], 'medico_asignado': i['medico_asignado']}            
+            return dict_pacientes
     except FileNotFoundError:
         print(f"El archivo {archivo} no se encontró.")
         return None
@@ -57,8 +53,9 @@ def read_txt(archivo):
         sineso = resultado.replace("^", ",")
         rsepa = sineso.split("\n")
         dict_resultados = {}
-        for i, value in enumerate(rsepa):
-            dict_resultados[i] = value.split(',')
+        for i in rsepa:
+            elementos = i.split(",")
+            dict_resultados[int(elementos[0])] = {elementos[1]: elementos[2], elementos[3]: elementos[4]}
         return dict_resultados
     except FileNotFoundError:
         print(f"El archivo {archivo} no se encontró.")
@@ -71,8 +68,8 @@ def read_txt(archivo):
 # segundo argumento cedula a buscar
 
 def looking_for_cedula(dict, cedula):
-    for i in range(len(dict)):
-        if dict[i][0] == cedula:
+    for i in dict.keys():
+        if i == cedula:
             return(dict[i])
 
 def modicarNombre(pacientes, nombreant):
@@ -81,18 +78,22 @@ def modicarNombre(pacientes, nombreant):
         if pacientes[i][0] == nombreant:
             return(pacientes[i])
         
-def info_medico(dict_medicos,key,):
-
-    c=dict_medicos[key]
-    return c
+def info_medico(dict_medicos, asignado):
+    cedula_medicos = list(dict_medicos.keys())
+    for i in cedula_medicos:
+        if dict_medicos[i]["codigo"] == asignado:
+            return dict_medicos[i]
+    
 
 
 def Asociar(cedula, dict_pacientes, dict_resultados, dict_medicos):
     info_paciente = looking_for_cedula(dict_pacientes, cedula) 
     info_resultados = looking_for_cedula(dict_resultados, cedula)
-    socio = int(info_paciente[3])
+    enfermedades = list(info_resultados.keys())
+    socio = info_paciente['medico_asignado']
     info_medi = info_medico(dict_medicos,socio)
-    asociation = f'El paciente {info_paciente[1]} está asignado al médico {info_medi[1]} los resultados de sus examenes son:\n{info_resultados[2]} para {info_resultados[1]} y {info_resultados[4]} para {info_resultados[3]}'
+    asociation =f'''El paciente {info_paciente['nombre']} está asignado al médico {info_medi['nombre']} los resultados de sus examenes son:
+{info_resultados[enfermedades[0]]} para {enfermedades[0]} y {info_resultados[enfermedades[1]]} para {enfermedades[1]}'''
     return asociation
 
 # def actualizar_paciente(dict_pacientes):
@@ -138,22 +139,21 @@ def eliminar_datos_paciente(dict_pacientes, cedula):
     paciente = looking_for_cedula(dict_pacientes, cedula)
     if paciente:
         print(f"""Datos del paciente encontrado:
-        Cédula: {paciente[0]}
-        Nombre: {paciente[1]}
-        Edad: {paciente[2]}
-        Médico asignado: {paciente[3]}""")
+        Nombre: {paciente['nombre']}
+        Edad: {paciente['edad']}
+        Médico asignado: {paciente['medico_asignado']}""")
         
         while True:
-            dato_a_eliminar = readUserInput(f"¿Qué dato desea eliminar del paciente {paciente[1]}?\n1. Nombre\n2. Edad\n3. Médico asignado\n ", int)
+            dato_a_eliminar = readUserInput(f"¿Qué dato desea eliminar del paciente {paciente['nombre']}?\n1. Nombre\n2. Edad\n3. Médico asignado\n ", int)
             
             if dato_a_eliminar == 1:
-                paciente[1] = None
+                paciente['nombre'] = ''
                 break
             elif dato_a_eliminar == 2:
-                paciente[2] = None
+                paciente['edad'] = ''
                 break
             elif dato_a_eliminar == 3:
-                paciente[3] = None
+                paciente['medico_asignado'] = ''
                 break
             else:
                 print("Entrada no válida.")
@@ -162,6 +162,58 @@ def eliminar_datos_paciente(dict_pacientes, cedula):
     else:
         print("No se encontró ningún paciente con la cédula proporcionada.")
 
+# Función para eliminar datos de un medico
 
+def eliminar_datos_medico(dict_medico, cedula):
+    medico = looking_for_cedula(dict_medico, cedula)
+    if medico:
+        print(f"""Datos del medico encontrado:
+        Nombre: {medico['nombre']}
+        Código: {medico['codigo']}""")
+        
+        while True:
+            dato_a_eliminar = readUserInput(f"¿Qué dato desea eliminar del médico {medico['nombre']}?\n1. Nombre\n2. Código\n ", int)
+            
+            if dato_a_eliminar == 1:
+                medico['nombre'] = ''
+                break
+            elif dato_a_eliminar == 2:
+                medico['edad'] = ''
+                break
+            else:
+                print("Entrada no válida.")
+        
+        print("Dato eliminado correctamente.")
+    else:
+        print("No se encontró ningún paciente con la cédula proporcionada.")
+
+# Función para eliminar resultados de un paciente
+
+def eliminar_datos_resultados(dict_pacientes, cedula):
+    paciente = looking_for_cedula(dict_pacientes, cedula)
+    enfermedades = list(paciente.keys())
+
+    if paciente:
+        print(f"""Datos del paciente encontrado:
+        Enfermedades: {enfermedades}
+        Estado: {paciente[enfermedades[0]]} para {enfermedades[0]} y {paciente[enfermedades[1]]} para {enfermedades[1]}
+        """)
+        
+        while True:
+            dato_a_eliminar = readUserInput(f"¿Cuál estado de los enfermedad desea eliminar?\n1. {enfermedades[0]}\n2. {enfermedades[1]}\n ", int)
+            
+            if dato_a_eliminar == 1:
+                paciente[enfermedades[0]] = ''
+                break
+            elif dato_a_eliminar == 2:
+                paciente[enfermedades[1]] = ''
+                break
+
+            else:
+                print("Entrada no válida.")
+        
+        print("Dato eliminado correctamente.")
+    else:
+        print("No se encontró ningún paciente con la cédula proporcionada.")
 
 
