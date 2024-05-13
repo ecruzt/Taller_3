@@ -189,6 +189,7 @@ while True:
 
 
         elif responsemenu1 == 6:
+            buscar_paciente(dict_pacientes)
             continue
 
 

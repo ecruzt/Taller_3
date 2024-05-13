@@ -397,3 +397,18 @@ def byebye():
             print("" * (tamaño - i - 1) + "*" * (2 * i + 1))
     for i in range(tamaño - 2, -1, -1):
         print("" * (tamaño - i - 1) + "*" * (2 * i + 1))
+
+#Buscar paciente
+
+def buscar_paciente(dict_pacientes):
+    cedula= readUserInput("Ingrese cedula del paciente: ", str)
+    for i in (dict_pacientes.keys()):
+        cadena= str(i)
+        if cadena.startswith(cedula):
+            print(dict_pacientes[i])
+        else:
+            print("No se encontraron mas usuarios")
+   
+
+
+
