@@ -1,0 +1,35 @@
+Médicos:
+Cédula: 101, nombre: Juan Pérez, codigo: 1
+Cédula: 102, nombre: María García, codigo: 2
+Cédula: 103, nombre: Carlos López, codigo: 3
+Cédula: 104, nombre: Laura Martínez, codigo: 4
+Cédula: 105, nombre: Ana Ruiz, codigo: 5
+
+Pacientes:
+Cédula: 1234567890, nombre: Pedro Pérez, edad: 40, medico_asignado: 1
+Cédula: 2345678901, nombre: María López, edad: 35, medico_asignado: 2
+Cédula: 3456789012, nombre: Juan Martínez, edad: 50, medico_asignado: 3
+Cédula: 4567890123, nombre: Ana García, edad: 28, medico_asignado: 4
+Cédula: 5678901234, nombre: Luisa Rodríguez, edad: 45, medico_asignado: 5
+
+Resultados de Pruebas:
+Cédula del Paciente: 1234567890
+Gripa: Positivo
+Fiebre: Positivo
+
+Cédula del Paciente: 2345678901
+Gripa: Negativo
+Fiebre: Negativo
+
+Cédula del Paciente: 3456789012
+Gripa: Positivo
+Fiebre: Positivo
+
+Cédula del Paciente: 4567890123
+Gripa: Negativo
+Fiebre: Positivo
+
+Cédula del Paciente: 5678901234
+Gripa: Positivo
+Fiebre: Negativo
+

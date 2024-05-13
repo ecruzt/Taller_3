@@ -26,25 +26,26 @@ for nombre_archivo in os.listdir(ruta_carpeta):
 # print(dict_pacientes)
 # print(dict_medicos)
 
-# dict_medicos = {101: {'nombre': 'Juan Pérez', 'codigo': '1'},
-                # 102: {'nombre': 'María García', 'codigo': '2'},
-                # 103: {'nombre': 'Carlos López', 'codigo': '3'}, 
-                # 104: {'nombre': 'Laura Martínez', 'codigo': '4'},
-                # 105: {'nombre': 'Ana Ruiz', 'codigo': '5'}}
+# dict_medicos = {
+#                 101: {'nombre': 'Juan Pérez', 'codigo': '1'},
+#                 102: {'nombre': 'María García', 'codigo': '2'},
+#                 103: {'nombre': 'Carlos López', 'codigo': '3'}, 
+#                 104: {'nombre': 'Laura Martínez', 'codigo': '4'},
+#                 105: {'nombre': 'Ana Ruiz', 'codigo': '5'}}
 
-# dict_pacientes = {1234567890: {'nombre': 'Pedro Pérez', 'edad': 40, 'medico_asignado': '1'},
-                    # 2345678901: {'nombre': 'María López', 'edad': 35, 'medico_asignado': '2'}, 
-                    # 3456789012: {'nombre': 'Juan Martínez', 'edad': 50, 'medico_asignado': '3'}, 
-                    # 4567890123: {'nombre': 'Ana García', 'edad': 28, 'medico_asignado': '4'}, 
-                    # 5678901234: {'nombre': 'Luisa Rodríguez', 'edad': 45, 'medico_asignado': '5'}}
+# dict_pacientes = {
+#                   1234567890: {'nombre': 'Pedro Pérez', 'edad': 40, 'medico_asignado': '1'},
+#                   2345678901: {'nombre': 'María López', 'edad': 35, 'medico_asignado': '2'}, 
+#                   3456789012: {'nombre': 'Juan Martínez', 'edad': 50, 'medico_asignado': '3'}, 
+#                   4567890123: {'nombre': 'Ana García', 'edad': 28, 'medico_asignado': '4'}, 
+#                   5678901234: {'nombre': 'Luisa Rodríguez', 'edad': 45, 'medico_asignado': '5'}}
 
-# # dict_resultados = {
-                        # 1234567890: {'Gripa': 'Positivo', 'Fiebre': 'Positivo'}, 
-                        # 2345678901: {'Gripa': 'Negativo', 'Fiebre': 'Negativo'}, 
-                        # 3456789012: {'Gripa': 'Positivo', 'Fiebre': 'Positivo'}, 
-                        # 4567890123: {'Gripa': 'Negativo', 'Fiebre': 'Positivo'}, 
-                        # 5678901234: {'Gripa': 'Positivo', 'Fiebre': 'Negativo'}
-# }
+# dict_resultados = {
+#                    1234567890: {'Gripa': 'Positivo', 'Fiebre': 'Positivo'}, 
+#                    2345678901: {'Gripa': 'Negativo', 'Fiebre': 'Negativo'}, 
+#                    3456789012: {'Gripa': 'Positivo', 'Fiebre': 'Positivo'}, 
+#                    4567890123: {'Gripa': 'Negativo', 'Fiebre': 'Positivo'}, 
+#                    5678901234: {'Gripa': 'Positivo', 'Fiebre': 'Negativo'}}
 
 
 while True:
@@ -54,6 +55,9 @@ while True:
 2. Modificar informacion del paciente
 3. Modificar informacion de los medicos
 4. Modificar examenes medicos
+5. Exportar informacion
+6. Buscador de pacientes
+7. Salir
 '''
     print(menu1)
 
@@ -148,13 +152,44 @@ while True:
             except TypeError:
                 print('Ingre una opción valida')
 
+        elif responsemenu1 == 5:
+            menu5 ='''
+============ Menú =============
+1. Exportar en formato .txt
+2. Exportar en formato .csv
+3. Exportar en formato .json
+'''
+            print(menu5)
+            try:
+                responsemenu5 = readUserInput('Ingrese la opcion deseada: ', int)
+                if responsemenu5 == 1:
+                    exportar_en_txt(dict_medicos, dict_pacientes, dict_resultados)
+                    exportacion_exitosa()
+
+                elif responsemenu5 == 2:
+                    exportar_en_csv(dict_medicos, dict_pacientes, dict_resultados)
+                    exportacion_exitosa()
+
+                elif responsemenu4 == 3:
+                    continue
+                
+                else:
+                    print('Ingre una opción valida')
+
+            except TypeError:
+                print('Ingre una opción valida')
+
+
+
+        elif responsemenu1 == 6:
+            continue
 
 
 
 
-
-
-
+        elif responsemenu1 == 7:
+            byebye()
+            break
         else:
             print('Ingre una opción valida')
 

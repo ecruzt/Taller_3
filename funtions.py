@@ -72,20 +72,23 @@ def looking_for_cedula(dict, cedula):
         if i == cedula:
             return(dict[i])
 
+
 def modicarNombre(pacientes, nombreant):
     
     for i in range(len(pacientes)) :
         if pacientes[i][0] == nombreant:
             return(pacientes[i])
-        
+
+# Funcion para encontrar medico asignado
+
 def info_medico(dict_medicos, asignado):
     cedula_medicos = list(dict_medicos.keys())
     for i in cedula_medicos:
         if dict_medicos[i]["codigo"] == asignado:
             return dict_medicos[i]
+
+# Funcion que relaciona paciente, medicos, y resultados
     
-
-
 def Asociar(cedula, dict_pacientes, dict_resultados, dict_medicos):
     info_paciente = looking_for_cedula(dict_pacientes, cedula) 
     info_resultados = looking_for_cedula(dict_resultados, cedula)
@@ -216,4 +219,87 @@ def eliminar_datos_resultados(dict_pacientes, cedula):
     else:
         print("No se encontró ningún paciente con la cédula proporcionada.")
 
+# funcion para exportar informacion en formato .txt
 
+def exportar_en_txt(dict_medicos, dict_pacientes, dict_resultados):
+    nombre_archivo = readUserInput('Ingrese un nombre para el archivo final: ', str)
+    with open(f"{nombre_archivo}.txt", 'w', encoding='utf-8') as archivo:
+        archivo.write('Médicos:\n')
+        for medico_id, info_medico in dict_medicos.items():
+            archivo.write(f"Cédula: {medico_id}")
+            for key, value in info_medico.items():
+                archivo.write(f", {key}: {value}")
+            archivo.write('\n')
+
+        archivo.write('\nPacientes:\n')
+        for paciente_id, info_paciente in dict_pacientes.items():
+            archivo.write(f"Cédula: {paciente_id}")
+            for key, value in info_paciente.items():
+                archivo.write(f", {key}: {value}")
+            archivo.write('\n')
+
+        archivo.write('\nResultados de Pruebas:\n')
+        for paciente_id, resultados in dict_resultados.items():
+            archivo.write(f"Cédula del Paciente: {paciente_id}\n")
+            for prueba, resultado in resultados.items():
+                archivo.write(f"{prueba}: {resultado}\n")
+            archivo.write('\n')
+
+# funcion para ecportar informacion en formato .csv
+
+def exportar_en_csv(dict_medicos, dict_pacientes, dict_resultados):
+    import csv
+    nombre_archivo = readUserInput('Ingrese un nombre para el archivo final: ', str)
+    
+    with open(f"{nombre_archivo}.csv", 'w', newline='') as archivo:
+        writer = csv.writer(archivo)
+        
+        primer_medico = list(dict_medicos.values())[0]
+        claves_medico = list(primer_medico.keys())
+        
+        writer.writerow(["Médicos"])
+        writer.writerow(["Cédula", *claves_medico])
+        for medico_id, info_medico in dict_medicos.items():
+            writer.writerow([medico_id, *info_medico.values()])
+        
+        writer.writerow([])
+        
+        primer_paciente = list(dict_pacientes.values())[0]
+        claves_paciente = list(primer_paciente.keys())
+        
+        writer.writerow(["Pacientes"])
+        writer.writerow(["Cédula", *claves_paciente])
+        for paciente_id, info_paciente in dict_pacientes.items():
+            writer.writerow([paciente_id, *info_paciente.values()])
+
+        writer.writerow([])
+        
+        primer_resultado = list(dict_resultados.values())[0]
+        claves_resultado = list(primer_resultado.keys())
+        
+        writer.writerow(["Resultados de Pruebas"])
+        writer.writerow(["Cédula del Paciente", *claves_resultado])
+        for paciente_id, resultados in dict_resultados.items():
+            writer.writerow([paciente_id, *resultados.values()])
+
+# adornos
+
+def exportacion_exitosa():
+    tamaño = 5
+    for i in range(tamaño):
+        if i == tamaño - 1:
+            print("*" * (2 * i + 1) + " Informacion exportada con exito!")
+        else:
+            print("" * (tamaño - i - 1) + "*" * (2 * i + 1))
+    for i in range(tamaño - 2, -1, -1):
+        print("" * (tamaño - i - 1) + "*" * (2 * i + 1))
+
+def byebye():
+    tamaño = 7
+    for i in range(tamaño):
+        if i == tamaño - 1:
+            print("*" * (2 * i + 1) + " Hasta pronto!")
+        else:
+            print("" * (tamaño - i - 1) + "*" * (2 * i + 1))
+    for i in range(tamaño - 2, -1, -1):
+        print("" * (tamaño - i - 1) + "*" * (2 * i + 1))
